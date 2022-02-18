@@ -29,6 +29,7 @@ namespace NekretnineAPI
             services.AddDbContext<ApplicationDbContext>(options =>
                 options.UseSqlServer(
                     Configuration.GetConnectionString("DefaultConnection")));
+            services.AddDatabaseDeveloperPageExceptionFilter();
             services.AddRazorPages();
             services.AddControllers();
             services.AddSwaggerGen(c =>
@@ -43,6 +44,7 @@ namespace NekretnineAPI
             if (env.IsDevelopment() || env.IsProduction())
             {
                 app.UseDeveloperExceptionPage();
+                
                 app.UseSwagger();
                 app.UseSwaggerUI(c => c.SwaggerEndpoint("/swagger/v1/swagger.json", "Nekretnine"));;
             }
