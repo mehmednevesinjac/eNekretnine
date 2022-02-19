@@ -1,4 +1,5 @@
 ﻿using Microsoft.EntityFrameworkCore;
+using NekretnineAPI.Model;
 using System;
 using System.Collections.Generic;
 using System.Linq;
@@ -11,8 +12,9 @@ namespace NekretnineAPI.Data
     {
         public ApplicationDbContext(DbContextOptions options) : base(options)
         {
-
+            
         }
+        public DbSet<Drzave> Drzave { get; set; }
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -23,6 +25,7 @@ namespace NekretnineAPI.Data
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {
             base.OnModelCreating(modelBuilder);
+            modelBuilder.Entity<Drzave>().ToTable("Drzave");
         }
     }
 }
