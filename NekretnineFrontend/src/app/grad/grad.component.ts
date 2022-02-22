@@ -16,9 +16,8 @@ export class GradComponent implements OnInit {
     this.getGrad();
   }
   Podaci: any;
-  UrediPodatak: Grad = new Grad(0,0 ,"");
+  UrediPodatak: Grad = new Grad(0,0 ,"", false);
   FilterGrad: string = '';
-  public dodajGradBoolean = false;
   getGrad() {
     this.HttpKlijent.get(MojConfig.adresa_servera + "/api/Grad").subscribe(rezultat => {
       this.Podaci = rezultat;
@@ -36,8 +35,8 @@ export class GradComponent implements OnInit {
     this.UrediPodatak.gradId = x.gradId;
     this.UrediPodatak.drzavaID = x.drzavaId;
     this.UrediPodatak.naziv = x.naziv;
-    this.dodajGradBoolean = true;
-    console.log(this.dodajGradBoolean + "uredi grad");
+    this.UrediPodatak.izmjenaGrada = true;
+    console.log(this.UrediPodatak.izmjenaGrada + "uredi grad");
   }
 
   izbrisiGrad(x: any) {
@@ -49,12 +48,12 @@ export class GradComponent implements OnInit {
 
 
   NoviGrad(UrediPodatak: Grad) {
-    console.log(this.dodajGradBoolean + "dodaj grad");
-    this.dodajGradBoolean = true;
-    this.UrediPodatak.gradId = 0;
-    this.UrediPodatak.drzavaID = 0;
-    this.UrediPodatak.naziv = "";
-    console.log(this.dodajGradBoolean + "dodaj grad");
+    console.log(UrediPodatak.izmjenaGrada + "dodaj grad");
+    UrediPodatak.izmjenaGrada = true;
+    UrediPodatak.gradId = 0;
+    UrediPodatak.drzavaID = 0;
+    UrediPodatak.naziv = "";
+    console.log(UrediPodatak.izmjenaGrada + "dodaj grad");
   }
 
 }

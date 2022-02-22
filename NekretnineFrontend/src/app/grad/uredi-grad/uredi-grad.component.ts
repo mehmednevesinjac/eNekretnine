@@ -1,8 +1,6 @@
 import {Component, Input, OnInit} from '@angular/core';
 import {MojConfig} from "../../moj-config";
 import {HttpClient} from "@angular/common/http";
-import {Grad} from "../grad";
-import {GradComponent} from "../grad.component";
 
 @Component({
   selector: 'app-uredi-grad',
@@ -11,14 +9,12 @@ import {GradComponent} from "../grad.component";
 })
 export class UrediGradComponent implements OnInit {
   @Input() urediGrad : any;
-  @Input() dodajGradBoolean : boolean;
-
   constructor(private HttpKlijent : HttpClient) { }
   odabranaDrzava : any;
   drzave : any;
   ngOnInit(): void {
     this.getDrzave()
-    console.log(this.dodajGradBoolean + " uredi grad oninit");
+
   }
 
   snimiGrad() {
@@ -30,7 +26,7 @@ export class UrediGradComponent implements OnInit {
       this.updateGrad();
     }
     this.promijeniBoolean();
-    console.log(this.dodajGradBoolean);
+    console.log(this.urediGrad.izmjenaGrada);
   }
 
   getDrzave() {
@@ -46,6 +42,7 @@ export class UrediGradComponent implements OnInit {
         console.log(rezultat);
       })
     }
+    this.promijeniBoolean();
   }
 
   private updateGrad() {
@@ -53,10 +50,11 @@ export class UrediGradComponent implements OnInit {
     this.HttpKlijent.post(MojConfig.adresa_servera+"/api/Grad/" + this.urediGrad.gradId,this.urediGrad).subscribe(rezultat => {
       console.log(rezultat);
     })
+    this.promijeniBoolean();
   }
 
   promijeniBoolean() {
-    this.dodajGradBoolean = false;
-    console.log(this.dodajGradBoolean + " promijeni bool");
+    this.urediGrad.izmjenaGrada = false;
+    console.log(this.urediGrad.izmjenaGrada + " promijeni bool");
   }
 }

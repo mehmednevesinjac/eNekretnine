@@ -27,52 +27,5 @@
     </ng-container>
     </tbody>
   </table>
-
   <app-uredi-drzava *ngIf="UrediPodatak.drzavaID != 0" [urediDrzavu]="UrediPodatak"></app-uredi-drzava>
-
-  <!--<div *ngIf="UrediPodatak !=null" class="modal fade show" tabindex="-1"
-       aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Podaci o gradu</h5>
-          <button type="button" class="btn-close" (click)="UrediPodatak = null" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Ime studenta</label>
-            <input class="form-control" [(ngModel)]="UrediPodatak.naziv" placeholder="=Ime grada">
-            <select [value]="" [(ngModel)]="OdabranaDrzava">
-              <option *ngFor="let drzava of Drzave" [value]="drzava">{{drzava.naziv}}</option>
-            </select>
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="snimiDrzava()">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div *ngIf="UrediPodatak!=null" class="modal fade show" tabindex="-1"
-       aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
-    <div class="modal-dialog">
-      <div class="modal-content">
-        <div class="modal-header">
-          <h5 class="modal-title">Modal title</h5>
-          <button type="button" class="btn-close" (click)="UrediPodatak = null" aria-label="Close"></button>
-        </div>
-        <div class="modal-body">
-          <div class="mb-3">
-            <label class="form-label">Ime studenta</label>
-            <input class="form-control" [(ngModel)]="UrediPodatak.naziv" placeholder="Ime studenta">
-          </div>
-          <div class="modal-footer">
-            <button type="button" class="btn btn-primary" (click)="snimiDrzava()">Save changes</button>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
 </div>
--->

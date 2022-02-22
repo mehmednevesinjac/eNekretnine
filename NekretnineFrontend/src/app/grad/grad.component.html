@@ -18,7 +18,7 @@
     <tbody>
     <ng-container>
       <tr *ngFor="let x of getGradFilter()">
-        <td scope="row">{{x.gradId}}</td>
+        <td>{{x.gradId}}</td>
         <td>{{x.drzave.naziv}}</td>
         <td>{{x.naziv}}</td>
         <td>
@@ -29,6 +29,7 @@
     </ng-container>
     </tbody>
   </table>
-<ng-container>
-  <app-uredi-grad [urediGrad]="UrediPodatak" [dodajGradBoolean]="dodajGradBoolean" ></app-uredi-grad>
+<ng-container *ngIf="UrediPodatak.izmjenaGrada == true">
+  <app-uredi-grad [urediGrad]="UrediPodatak" ></app-uredi-grad>
 </ng-container>
+</div>

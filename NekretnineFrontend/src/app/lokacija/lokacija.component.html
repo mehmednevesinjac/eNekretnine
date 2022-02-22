@@ -20,7 +20,7 @@
     <tbody>
     <ng-container>
       <tr *ngFor="let x of getLokacijaFilter()">
-        <td scope="row">{{x.lokacijaID}}</td>
+        <td>{{x.lokacijaID}}</td>
         <td>{{x.grad.drzave.naziv}}</td>
         <td>{{x.grad.naziv}}</td>
         <td>{{x.ulica}}</td>
@@ -35,3 +35,4 @@
   </table>
 
   <app-uredi-lokacija *ngIf="UrediPodatak.lokacijaID != 0" [urediLokacija]="UrediPodatak"></app-uredi-lokacija>
+</div>
