@@ -15,6 +15,9 @@ namespace NekretnineAPI.Data
             
         }
         public DbSet<Drzave> Drzave { get; set; }
+        public DbSet<Grad> Grad { get; set; }
+        public DbSet<Lokacije> Lokacije { get; set; }
+
 
         protected override void OnConfiguring(DbContextOptionsBuilder optionsBuilder)
         {
@@ -26,6 +29,9 @@ namespace NekretnineAPI.Data
         {
             base.OnModelCreating(modelBuilder);
             modelBuilder.Entity<Drzave>().ToTable("Drzave");
+            modelBuilder.Entity<Grad>().ToTable("Grad");
+            modelBuilder.Entity<Lokacije>().ToTable("Lokacije");
+
         }
     }
 }

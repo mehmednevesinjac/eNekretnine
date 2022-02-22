@@ -67,7 +67,7 @@ namespace NekretnineAPI
                 .AllowAnyMethod()
                 .AllowAnyHeader()
                 .AllowCredentials()
-      );
+                         );
 
 
             app.UseHttpsRedirection();

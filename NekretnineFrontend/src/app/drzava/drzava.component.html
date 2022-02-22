@@ -1,0 +1,78 @@
+<div class="drzave">
+  <a class="nav-link" style="font-weight: bold" routerLink="/drzava">Drzava</a>
+  <a class="nav-link" style="font-weight: bold" routerLink="/grad">Grad</a>
+  <a class="nav-link" style="font-weight: bold" routerLink="/lokacija">Lokacija</a>
+  <button class="btn btn-primary" (click)="NovaDrzava(UrediPodatak)">Dodaj</button>
+  <br><br>
+  <input class="form-control" [(ngModel)]="FilterDrzava" placeholder="Ime Drzave">
+
+  <table class="table table-dark" style="margin-left: auto; margin-right: auto; margin-top:10px; font-size: 16px;">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Drzava</th>
+      <th>Akcija</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container>
+      <tr *ngFor="let x of getDrzavaFilter()">
+        <th scope="row">{{x.drzavaID}}</th>
+        <td>{{x.naziv}}</td>
+        <td>
+          <button (click)="izbrisiDrzavu(x)">Izbrisi</button>
+          <button (click)="urediDrzava(x)">Uredi</button>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <app-uredi-drzava *ngIf="UrediPodatak.drzavaID != 0" [urediDrzavu]="UrediPodatak"></app-uredi-drzava>
+
+  <!--<div *ngIf="UrediPodatak !=null" class="modal fade show" tabindex="-1"
+       aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Podaci o gradu</h5>
+          <button type="button" class="btn-close" (click)="UrediPodatak = null" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Ime studenta</label>
+            <input class="form-control" [(ngModel)]="UrediPodatak.naziv" placeholder="=Ime grada">
+            <select [value]="" [(ngModel)]="OdabranaDrzava">
+              <option *ngFor="let drzava of Drzave" [value]="drzava">{{drzava.naziv}}</option>
+            </select>
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="snimiDrzava()">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+
+  <div *ngIf="UrediPodatak!=null" class="modal fade show" tabindex="-1"
+       aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+    <div class="modal-dialog">
+      <div class="modal-content">
+        <div class="modal-header">
+          <h5 class="modal-title">Modal title</h5>
+          <button type="button" class="btn-close" (click)="UrediPodatak = null" aria-label="Close"></button>
+        </div>
+        <div class="modal-body">
+          <div class="mb-3">
+            <label class="form-label">Ime studenta</label>
+            <input class="form-control" [(ngModel)]="UrediPodatak.naziv" placeholder="Ime studenta">
+          </div>
+          <div class="modal-footer">
+            <button type="button" class="btn btn-primary" (click)="snimiDrzava()">Save changes</button>
+          </div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+-->

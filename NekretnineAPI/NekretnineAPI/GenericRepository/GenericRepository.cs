@@ -20,24 +20,24 @@ namespace NekretnineAPI.GenericRepository
 
         }
 
-        public IEnumerable<T> GetAll()
+        public virtual IEnumerable<T> GetAll()
         {
             return dbContext.Set<T>().ToList();
         }
 
-        public T GetById(object id)
+        public T GetById(int id)
         {
             return dbContext.Set<T>().Find(id);
         }
 
-        public ActionResult Add(T obj)
+        public virtual ActionResult Add(T obj)
         {
             dbContext.Set<T>().Add(obj);
             OkResult rezultat = new OkResult();
             return rezultat;
         }
 
-        public ActionResult Delete(object id)
+        public ActionResult Delete(int id)
         {
             T existing = dbContext.Set<T>().Find(id);
             dbContext.Set<T>().Remove(existing);
@@ -59,12 +59,9 @@ namespace NekretnineAPI.GenericRepository
             dbContext.SaveChanges();
         }
 
-        public ActionResult Update(T obj)
+        public virtual ActionResult Update(T obj)
         {
-            dbContext.Set<T>().Attach(obj);
-            dbContext.Entry(obj).State = EntityState.Modified;
-            OkResult rezultat = new OkResult();
-            return rezultat;
+            return new NotFoundResult();   
         }
 
         public IEnumerable<T> Find(Expression<Func<T, bool>> expression)

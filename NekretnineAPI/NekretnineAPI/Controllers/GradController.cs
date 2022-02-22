@@ -14,48 +14,50 @@ namespace NekretnineAPI.Controllers
 {
     [Route("api/[controller]")]
     [ApiController]
-    public class DrzaveController : ControllerBase
+    public class GradController : ControllerBase
     {
         private readonly IUnitOfWork unitOfWork;
-        public DrzaveController(IUnitOfWork unitOfWork)
+        public GradController(IUnitOfWork unitOfWork)
         {
             this.unitOfWork = unitOfWork;
         }
 
         [HttpGet]
-        public List<Drzave> GetAll()
+        public List<Grad> GetAll()
         {
-            return unitOfWork.Drzava.GetAll().ToList();
+            return unitOfWork.Grad.GetAll().ToList();
         }
 
         [HttpGet("{id}")]
-        public Drzave GetById(int id)
+        public Grad GetById(int id)
         {
-            return unitOfWork.Drzava.GetById(id);
-        }
-
-        [HttpPost]
-        public ActionResult Add([FromBody] DrzavaVM drzavaVM)
-        {
-            Drzave drzave = new Drzave();
-            drzave.Naziv = drzavaVM.Naziv;
-            unitOfWork.Drzava.Add(drzave);
-            unitOfWork.Complete();
-            return Ok();
-        }
-
-        [HttpPost("{id}")]
-        public ActionResult Update([FromBody] Drzave drzave)
-        {
-            unitOfWork.Drzava.Update(drzave);
-            unitOfWork.Complete();
-            return Ok();
+            return unitOfWork.Grad.GetById(id);
         }
 
         [HttpDelete("{id}")]
         public ActionResult Delete(int id)
         {
-            unitOfWork.Drzava.Delete(id);
+            unitOfWork.Grad.Delete(id);
+            unitOfWork.Complete();
+            return Ok();
+        }
+
+        [HttpPost("{id}")]
+        public ActionResult Update([FromBody] Grad grad)
+        {
+            unitOfWork.Grad.Update(grad);
+            unitOfWork.Complete();
+            return Ok();
+        }
+        [HttpPost]
+        public ActionResult Add([FromBody]GradVM gradVM)
+        {
+            Grad grad = new Grad
+            {
+                Naziv = gradVM.Naziv,
+                DrzavaId = gradVM.DrzavaId
+            };
+            unitOfWork.Grad.Add(grad);
             unitOfWork.Complete();
             return Ok();
         }

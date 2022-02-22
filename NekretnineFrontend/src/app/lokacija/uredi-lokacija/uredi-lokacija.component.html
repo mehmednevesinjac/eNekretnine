@@ -1,0 +1,26 @@
+<div *ngIf="urediLokacija.lokacijaId != 0" class="modal fade show"  tabindex="-1" aria-labelledby="exampleModalLiveLabel" aria-modal="true" role="dialog" style="display: block;">
+  <div class="modal-dialog">
+    <div class="modal-content">
+      <div class="modal-header">
+        <h5 class="modal-title" >Modal title</h5>
+        <button type="button" class="btn-close" (click)="urediLokacija.lokacijaId = 0" aria-label="Close"></button>
+      </div>
+      <div class="modal-body">
+        <div class="mb-3">
+          <label class="form-label">Podaci o Lokaciji</label>
+          <input style="margin-bottom: 10px" class="form-control" [(ngModel)]="urediLokacija.ulica"  placeholder="Ime Ulice">
+          <input style="margin-bottom: 10px" class="form-control" [(ngModel)]="urediLokacija.broj"  placeholder="Broj">
+          <mat-select [(ngModel)]="odabranaDrzava">
+            <mat-option style="font-size: 15px" *ngFor="let drzava of drzave" [value]="drzava.drzavaID" >{{drzava.naziv}}</mat-option>
+          </mat-select>
+          <mat-select [(ngModel)]="odabraniGrad">
+            <mat-option style="font-size: 15px" *ngFor="let grad of gradovi" [value]="grad.gradId" >{{grad.naziv}}</mat-option>
+          </mat-select>
+        </div>
+        <div class="modal-footer">
+          <button type="button" class="btn btn-primary" (click)="snimiLokacija()">Save changes</button>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>

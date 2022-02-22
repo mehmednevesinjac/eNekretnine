@@ -11,11 +11,11 @@ namespace NekretnineAPI.GenericRepository
     public interface IGenericRepository<T> where T : class
     {
         IEnumerable<T> GetAll();
-        T GetById(object id);
+        T GetById(int id);
         ActionResult Add(T obj);
         ActionResult Update(T obj);
         IEnumerable<T> Find(Expression<Func<T, bool>> expression);
-        ActionResult Delete(object id);
+        ActionResult Delete(int id);
         void Save();
     }
 }

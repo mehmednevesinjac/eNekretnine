@@ -15,9 +15,15 @@ namespace NekretnineAPI.GenericRepository
         {
             this.context = context;
             Drzava = new DrzavaRepository(context);
+            Grad = new GradRepository(context);
+            Lokacija = new LokacijaRepository(context);
         }
 
         public IDrzavaRepository Drzava { get; private set; }
+
+        public IGradRepository Grad { get; private set; }
+
+        public ILokacijaRepository Lokacija { get; private set; }
 
         public int Complete()
         {

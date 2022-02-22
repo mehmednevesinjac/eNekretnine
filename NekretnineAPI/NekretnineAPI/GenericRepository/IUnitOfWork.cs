@@ -9,6 +9,10 @@ namespace NekretnineAPI.GenericRepository
     public interface IUnitOfWork : IDisposable
     {
         public IDrzavaRepository Drzava { get; }
+        public IGradRepository Grad { get; }
+        public ILokacijaRepository Lokacija { get; }
+
+
         int Complete();
     }
 }

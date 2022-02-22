@@ -1,0 +1,37 @@
+<div class="drzave">
+  <a class="nav-link" style="font-weight: bold" routerLink="/drzava">Drzava</a>
+  <a class="nav-link" style="font-weight: bold" routerLink="/grad">Grad</a>
+  <a class="nav-link" style="font-weight: bold" routerLink="/lokacija">Lokacija</a>
+  <button class="btn btn-primary" (click)="novaLokacija(UrediPodatak)">Dodaj</button>
+  <br><br>
+  <input class="form-control" [(ngModel)]="FilterLokacija" placeholder="Ime Drzave">
+
+  <table class="table table-dark" style="margin-left: auto; margin-right: auto; margin-top:10px; font-size: 16px;">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Drzava</th>
+      <th>Grad</th>
+      <th>Ulica</th>
+      <th>Broj</th>
+      <th>Akcija</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container>
+      <tr *ngFor="let x of getLokacijaFilter()">
+        <td scope="row">{{x.lokacijaID}}</td>
+        <td>{{x.grad.drzave.naziv}}</td>
+        <td>{{x.grad.naziv}}</td>
+        <td>{{x.ulica}}</td>
+        <td>{{x.broj}}</td>
+        <td>
+          <button (click)="izbrisiLokaciju(x)">Izbrisi</button>
+          <button (click)="urediLokaciju(x)">Uredi</button>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+
+  <app-uredi-lokacija *ngIf="UrediPodatak.lokacijaID != 0" [urediLokacija]="UrediPodatak"></app-uredi-lokacija>

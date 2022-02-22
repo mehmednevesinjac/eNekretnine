@@ -1,0 +1,34 @@
+<div class="drzave">
+  <a class="nav-link" style="font-weight: bold" routerLink="/drzava">Drzava</a>
+  <a class="nav-link" style="font-weight: bold" routerLink="/grad">Grad</a>
+  <a class="nav-link" style="font-weight: bold" routerLink="/lokacija">Lokacija</a>
+  <button class="btn btn-primary" (click)="NoviGrad(UrediPodatak)">Dodaj</button>
+  <br><br>
+  <input class="form-control" [(ngModel)]="FilterGrad" placeholder="Ime Drzave">
+
+  <table class="table table-dark" style="margin-left: auto; margin-right: auto; margin-top:10px; font-size: 16px;">
+    <thead>
+    <tr>
+      <th>#</th>
+      <th>Drzava</th>
+      <th>Grad</th>
+      <th>Akcija</th>
+    </tr>
+    </thead>
+    <tbody>
+    <ng-container>
+      <tr *ngFor="let x of getGradFilter()">
+        <td scope="row">{{x.gradId}}</td>
+        <td>{{x.drzave.naziv}}</td>
+        <td>{{x.naziv}}</td>
+        <td>
+          <button (click)="izbrisiGrad(x)">Izbrisi</button>
+          <button (click)="urediGrad(x)">Uredi</button>
+        </td>
+      </tr>
+    </ng-container>
+    </tbody>
+  </table>
+<ng-container>
+  <app-uredi-grad [urediGrad]="UrediPodatak" [dodajGradBoolean]="dodajGradBoolean" ></app-uredi-grad>
+</ng-container>
