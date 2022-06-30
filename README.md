@@ -11,7 +11,7 @@ SQL baza je postavljena na plesk te nije potrebno raditi restore.
 2.  Otvoriti i pokrenuti NekretnineAPI 
 3.  Otvoriti NekretnineFrontend
 4.  Dohvatiti potrebne pakete
-5.   Pokrenuti Frontend koristeci ng serve --ssl\
+5.   Pokrenuti Frontend koristeci ng serve --ssl
 
 Login Informacije : 
 Username : test
