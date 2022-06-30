@@ -7,7 +7,6 @@ SQL baza je postavljena na plesk te nije potrebno raditi restore.
 2. Frontend koji je pravljen korištenjem AngularJS framework-a, koji omogućava korisniku login, registraciju, i manipulisanje dosad implementiranih tabela.
 
 # Getting Started
-TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
 1.	Installation process
   Klonirati projekat sa Github-a 
   Otvoriti i pokrenuti NekretnineAPI 
