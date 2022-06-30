@@ -7,12 +7,11 @@ SQL baza je postavljena na plesk te nije potrebno raditi restore.
 2. Frontend koji je pravljen korištenjem AngularJS framework-a, koji omogućava korisniku login, registraciju, i manipulisanje dosad implementiranih tabela.
 
 # Getting Started
-1.	Installation process
-  Klonirati projekat sa Github-a 
-  Otvoriti i pokrenuti NekretnineAPI 
-  Otvoriti NekretnineFrontend
-  Dohvatiti potrebne pakete
-  Pokrenuti Frontend koristeci ng serve --ssl 
+1.  Klonirati projekat sa Github-a 
+2.  Otvoriti i pokrenuti NekretnineAPI 
+3.  Otvoriti NekretnineFrontend
+4.  Dohvatiti potrebne pakete
+5.   Pokrenuti Frontend koristeci ng serve --ssl 
 Login Informacije : 
 Username : test
 Password : Pass123.
