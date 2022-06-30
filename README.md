@@ -12,6 +12,7 @@ SQL baza je postavljena na plesk te nije potrebno raditi restore.
 3.  Otvoriti NekretnineFrontend
 4.  Dohvatiti potrebne pakete
 5.   Pokrenuti Frontend koristeci ng serve --ssl 
+/n
 Login Informacije : 
 Username : test
 Password : Pass123.
