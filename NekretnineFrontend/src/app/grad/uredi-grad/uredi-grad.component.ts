@@ -1,6 +1,8 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MojConfig} from "../../moj-config";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
+import {OidcSecurityService} from "angular-auth-oidc-client";
+import {GradComponent} from "../../grad/grad.component";
 
 @Component({
   selector: 'app-uredi-grad',
@@ -9,7 +11,12 @@ import {HttpClient} from "@angular/common/http";
 })
 export class UrediGradComponent implements OnInit {
   @Input() urediGrad : any;
-  constructor(private HttpKlijent : HttpClient) { }
+  @Output() messageEvent = new EventEmitter();
+  constructor(private HttpKlijent : HttpClient,private oidcSecurityServices : OidcSecurityService, private comp : GradComponent) { }
+  token = this.oidcSecurityServices.getAccessToken();
+  httpOptions = {
+    headers: new HttpHeaders({Authorization: 'Bearer '+this.token})
+  };
   odabranaDrzava : any;
   drzave : any;
   ngOnInit(): void {
@@ -26,19 +33,23 @@ export class UrediGradComponent implements OnInit {
       this.updateGrad();
     }
     this.promijeniBoolean();
-    console.log(this.urediGrad.izmjenaGrada);
   }
 
   getDrzave() {
-    this.HttpKlijent.get(MojConfig.adresa_servera + "/api/Drzave").subscribe(rezultat => {
-      this.drzave = rezultat;
+
+    this.HttpKlijent.get<any>(MojConfig.adresa_servera + "/api/Drzave", {
+      headers: this.httpOptions.headers,
+    //  params: this.httpParams,
+      observe: 'response' as 'response',
+    }).subscribe((rezultat: HttpResponse<any>) => {
+      this.drzave = rezultat.body;
     });
   }
 
   dodajGrad() {
     var temp  = {naziv : this.urediGrad.naziv, drzavaId : this.odabranaDrzava};
     if(temp.naziv != null) {
-      this.HttpKlijent.post(MojConfig.adresa_servera + "/api/Grad", temp).subscribe((rezultat: any) => {
+      this.HttpKlijent.post(MojConfig.adresa_servera + "/api/Gradovi", temp,this.httpOptions).subscribe((rezultat: any) => {
         console.log(rezultat);
       })
     }
@@ -47,7 +58,7 @@ export class UrediGradComponent implements OnInit {
 
   private updateGrad() {
     this.urediGrad.drzavaId =  this.odabranaDrzava
-    this.HttpKlijent.post(MojConfig.adresa_servera+"/api/Grad/" + this.urediGrad.gradId,this.urediGrad).subscribe(rezultat => {
+    this.HttpKlijent.put(MojConfig.adresa_servera+"/api/Gradovi/" + this.urediGrad.gradId,this.urediGrad,this.httpOptions).subscribe(rezultat => {
       console.log(rezultat);
     })
     this.promijeniBoolean();

@@ -19,7 +19,7 @@
     <ng-container>
       <tr *ngFor="let x of getGradFilter()">
         <td>{{x.gradId}}</td>
-        <td>{{x.drzave.naziv}}</td>
+        <td>{{x.drzava.naziv}}</td>
         <td>{{x.naziv}}</td>
         <td>
           <button (click)="izbrisiGrad(x)">Izbrisi</button>
@@ -32,4 +32,12 @@
 <ng-container *ngIf="UrediPodatak.izmjenaGrada == true">
   <app-uredi-grad [urediGrad]="UrediPodatak" ></app-uredi-grad>
 </ng-container>
+  <mat-paginator
+    [length]="pagination.TotalCount"
+    [pageSize]="pagination.PageSize"
+    [pageSizeOptions]="[5, 10, 25, 100]"
+    (page)="getGrad($event)"
+    aria-label="Select page" style="width: 80%; margin-left: 20px">
+
+  </mat-paginator>
 </div>

@@ -1,4 +1,4 @@
-import { NgModule } from '@angular/core';
+import { NgModule} from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 import { AppComponent } from './app.component';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
@@ -22,6 +22,9 @@ import { UrediGradComponent } from './grad/uredi-grad/uredi-grad.component';
 import {MatOptionModule} from "@angular/material/core";
 import {MatSelectModule} from "@angular/material/select";
 import { UrediLokacijaComponent } from './lokacija/uredi-lokacija/uredi-lokacija.component';
+import { AuthConfigModule } from './auth/auth-config.module';
+import { LoginComponent } from './login/login.component';
+import {MatPaginatorModule} from "@angular/material/paginator";
 
 @NgModule({
   declarations: [
@@ -31,32 +34,35 @@ import { UrediLokacijaComponent } from './lokacija/uredi-lokacija/uredi-lokacija
     GradComponent,
     LokacijaComponent,
     UrediGradComponent,
-    UrediLokacijaComponent
+    UrediLokacijaComponent,
+    LoginComponent
   ],
-  imports: [
-    BrowserModule,
-    BrowserAnimationsModule,
-    MatDividerModule,
-    CommonModule,
-    FlexLayoutModule,
-    MatIconModule,
-    MatInputModule,
-    MatButtonModule,
-    ReactiveFormsModule,
-    MatSidenavModule,
-    MatToolbarModule,
-    RouterModule.forRoot([
-      {path: 'drzava', component: DrzavaComponent},
-      {path: 'grad', component: GradComponent},
-      {path: 'lokacija', component: LokacijaComponent},
+    imports: [
+        BrowserModule,
+        BrowserAnimationsModule,
+        MatDividerModule,
+        CommonModule,
+        FlexLayoutModule,
+        MatIconModule,
+        MatInputModule,
+        MatButtonModule,
+        ReactiveFormsModule,
+        MatSidenavModule,
+        MatToolbarModule,
+        RouterModule.forRoot([
+            {path: 'drzava', component: DrzavaComponent},
+            {path: 'grad', component: GradComponent},
+            {path: 'lokacija', component: LokacijaComponent},
+            {path: 'login', component: LoginComponent}
+        ]),
+        HttpClientModule,
+        FormsModule,
+        MatOptionModule,
+        MatSelectModule,
+        AuthConfigModule,
+        MatPaginatorModule,
 
-    ]),
-    HttpClientModule,
-    FormsModule,
-    MatOptionModule,
-    MatSelectModule,
-
-  ],
+    ],
   providers: [],
   bootstrap: [AppComponent]
 })

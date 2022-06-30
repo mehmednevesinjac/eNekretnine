@@ -19,26 +19,49 @@ namespace Services
             Context = context;
             Mapper = mapper;
         }
-        public virtual IEnumerable<T> GetAll(TSearch search = null)
+        public virtual Tuple<IList<T>, BaseSearchObject> GetAll(TSearch? search = null)
         {
             var entity = Context.Set<TDb>().AsQueryable();
             if (search != null)
                 entity = AddFilter(entity, search);
+            var count = entity.Count();
             if (search?.Page.HasValue == true && search?.PageSize.HasValue == true)
-                entity = entity.Take(search.PageSize.Value).Skip(search.PageSize.Value * search.Page.Value);
+                entity = entity.Skip(search.PageSize.Value * (search.Page.Value - 1)).Take(search.PageSize.Value);
             var list = entity.ToList();
-            return Mapper.Map<IList<T>>(list);
+            BaseSearchObject paginationMetadata;
+            if (search?.PageSize != null)   
+            {
+                paginationMetadata = new BaseSearchObject
+                {
+                    TotalCount = count,
+                    Page = search?.Page.Value,
+                    PageSize = search.PageSize.Value,
+                    TotalPages = (int)Math.Ceiling((decimal)count / (decimal)search.PageSize)
+                };
+            }
+                else
+                {
+                    paginationMetadata = new BaseSearchObject
+                    {
+                        TotalCount = count
+                    };
+                }  
+            var mappedList = Mapper.Map<IList<T>>(list);
+            return new Tuple<IList<T>,BaseSearchObject>(mappedList, paginationMetadata);
+           
         }
 
-        public virtual IQueryable<TDb> AddFilter(IQueryable<TDb> query, TSearch search = null)
+        public virtual IQueryable<TDb> AddFilter(IQueryable<TDb> query, TSearch? search = null)
         {
             return query;
         }
 
-        public virtual T GetById(int id)
+        public virtual Tuple<T,BaseSearchObject> GetById(int id)
         {
             var entity = Context.Set<TDb>().Find(id);
-            return Mapper.Map<T>(entity);
+            var mappedObject = Mapper.Map<T>(entity);
+            var paginationMetadata = new BaseSearchObject { TotalCount = 1, Page = 1, PageSize = 1, TotalPages = 1 };
+            return new Tuple<T, BaseSearchObject>(mappedObject, paginationMetadata);
         }
     }
 }

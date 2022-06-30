@@ -1,6 +1,9 @@
-import {Component, Input, OnInit} from '@angular/core';
+import {Component, EventEmitter, Input, OnInit, Output} from '@angular/core';
 import {MojConfig} from "../../moj-config";
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders} from "@angular/common/http";
+import {OidcSecurityService} from "angular-auth-oidc-client";
+import {DrzavaComponent} from "../drzava.component"
+import {Drzava} from "../../Models/drzava";
 
 @Component({
   selector: 'app-uredi-drzava',
@@ -9,13 +12,17 @@ import {HttpClient} from "@angular/common/http";
 })
 export class UrediDrzavaComponent implements OnInit {
   @Input() urediDrzavu : any;
-  constructor(private HttpKlijent : HttpClient) { }
-
+  @Output() messageEvent = new EventEmitter();
+  constructor(private HttpKlijent : HttpClient,private oidcSecurityServices : OidcSecurityService, private comp : DrzavaComponent) { }
+  token = this.oidcSecurityServices.getAccessToken();
+  httpOptions = {
+    headers: new HttpHeaders({Authorization: 'Bearer '+this.token})
+  };
   ngOnInit(): void {
   }
 
   snimiDrzava() {
-    if (this.urediDrzavu.drzavaID == -1)
+    if (this.urediDrzavu.drzavaId == -1)
     {
       this.DodajDrzavu();
     }
@@ -27,20 +34,21 @@ export class UrediDrzavaComponent implements OnInit {
   DodajDrzavu() {
     var temp  = {naziv : this.urediDrzavu.naziv};
     if(temp.naziv != null) {
-      this.HttpKlijent.post(MojConfig.adresa_servera + "/api/Drzave", temp).subscribe((rezultat: any) => {
+      this.HttpKlijent.post(MojConfig.adresa_servera + "/api/Drzave", temp,this.httpOptions).subscribe((rezultat: any) => {
         console.log(rezultat);
       })
     }
     this.urediDrzavu.naziv = "";
-    this.urediDrzavu.drzavaID = 0;
+    this.urediDrzavu.drzavaId = 0;
+    this.messageEvent.emit();
   }
 
   private updateDrzavu() {
-    console.log(this.urediDrzavu.drzavaID);
-    this.HttpKlijent.post(MojConfig.adresa_servera+"/api/Drzave/" + this.urediDrzavu.drzavaID,this.urediDrzavu).subscribe(rezultat => {
+    this.HttpKlijent.put(MojConfig.adresa_servera+"/api/Drzave/" + this.urediDrzavu.drzavaId,this.urediDrzavu,this.httpOptions).subscribe(rezultat => {
       console.log(rezultat);
     })
     this.urediDrzavu.naziv = "";
-    this.urediDrzavu.drzavaID = 0;
+    this.urediDrzavu.drzavaId = 0;
+    this.messageEvent.emit();
   }
 }

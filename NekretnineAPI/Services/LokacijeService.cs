@@ -29,7 +29,7 @@ namespace Services
             return entity;
         }
 
-        public override IEnumerable<Models.Lokacije> GetAll(Models.SearchObjects.LokacijeSearchObject? search = null)
+        public override Tuple<IList<Models.Lokacije>,BaseSearchObject> GetAll(Models.SearchObjects.LokacijeSearchObject? search = null)
         {
             var entity = Context.Set<Database.Lokacije>().Include(x => x.Grad).Include(x => x.Grad.Drzava).AsQueryable();
             if (search != null)
@@ -37,15 +37,26 @@ namespace Services
             if (search?.Page.HasValue == true && search?.PageSize.HasValue == true)
                 entity = entity.Take(search.PageSize.Value).Skip(search.PageSize.Value * search.Page.Value);
             var list = entity.ToList();
-            return Mapper.Map<IList<Models.Lokacije>>(list);
+            var mappedList = Mapper.Map<IList<Models.Lokacije>>(list);
+            var paginationMetadata = new BaseSearchObject
+            {
+                TotalCount = list.Count,
+                Page = search.Page.Value,
+                PageSize = search.PageSize.Value,
+                TotalPages = (int)Math.Ceiling((decimal)list.Count / (decimal)search.PageSize)
+            };
+            return new Tuple<IList<Models.Lokacije>, BaseSearchObject>(mappedList, paginationMetadata);
+            
         }
 
 
 
-        public override Models.Lokacije GetById(int id)
+        public override Tuple<Models.Lokacije,BaseSearchObject> GetById(int id)
         {
             var entity = Context.Set<Database.Lokacije>().Include(x => x.Grad).Include(x => x.Grad.Drzava).First(x => x.LokacijaId == id);
-            return Mapper.Map<Models.Lokacije>(entity);
+            var mappedObject = Mapper.Map<Models.Lokacije>(entity);
+            var paginationMetadata = new BaseSearchObject { TotalCount = 1, Page = 1, PageSize = 1, TotalPages = 1 };
+            return new Tuple<Models.Lokacije, BaseSearchObject>(mappedObject, paginationMetadata);
         }
     }
 }

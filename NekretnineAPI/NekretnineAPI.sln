@@ -9,7 +9,9 @@ Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Services", "Services\Servic
 EndProject
 Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Models", "Models\Models.csproj", "{16FC4562-86FC-4C3D-A0B1-DD13E45ECC7A}"
 EndProject
-Project("{FAE04EC0-301F-11D3-BF4B-00C04F79EFBC}") = "Database", "Database\Database.csproj", "{C2226B04-B6C3-4981-A55E-846A1C8B1AE7}"
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "Database", "Database\Database.csproj", "{C2226B04-B6C3-4981-A55E-846A1C8B1AE7}"
+EndProject
+Project("{9A19103F-16F7-4668-BE54-9A1E7A4F7556}") = "IdentityServer", "IdentityServer\IdentityServer.csproj", "{E428BF74-01DC-44D4-8715-2A9A64F1CA4A}"
 EndProject
 Global
 	GlobalSection(SolutionConfigurationPlatforms) = preSolution
@@ -33,6 +35,10 @@ Global
 		{C2226B04-B6C3-4981-A55E-846A1C8B1AE7}.Debug|Any CPU.Build.0 = Debug|Any CPU
 		{C2226B04-B6C3-4981-A55E-846A1C8B1AE7}.Release|Any CPU.ActiveCfg = Release|Any CPU
 		{C2226B04-B6C3-4981-A55E-846A1C8B1AE7}.Release|Any CPU.Build.0 = Release|Any CPU
+		{E428BF74-01DC-44D4-8715-2A9A64F1CA4A}.Debug|Any CPU.ActiveCfg = Debug|Any CPU
+		{E428BF74-01DC-44D4-8715-2A9A64F1CA4A}.Debug|Any CPU.Build.0 = Debug|Any CPU
+		{E428BF74-01DC-44D4-8715-2A9A64F1CA4A}.Release|Any CPU.ActiveCfg = Release|Any CPU
+		{E428BF74-01DC-44D4-8715-2A9A64F1CA4A}.Release|Any CPU.Build.0 = Release|Any CPU
 	EndGlobalSection
 	GlobalSection(SolutionProperties) = preSolution
 		HideSolutionNode = FALSE

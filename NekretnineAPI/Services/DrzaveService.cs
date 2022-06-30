@@ -15,10 +15,10 @@ namespace Services
         {
         }
 
-        public override IQueryable<Drzave> AddFilter(IQueryable<Drzave> entity, DrzavaSearchObject search)
+        public override IQueryable<Drzave> AddFilter(IQueryable<Drzave> entity, DrzavaSearchObject? search)
         {
             if (!string.IsNullOrEmpty(search?.Naziv))
-                entity = entity.Where(x => x.Naziv == search.Naziv);
+                entity = entity.Where(x => x.Naziv.ToLower().StartsWith(search.Naziv.ToLower()));
             return entity;
         }
     }

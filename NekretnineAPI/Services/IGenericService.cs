@@ -1,4 +1,5 @@
-﻿using System;
+﻿using Models.SearchObjects;
+using System;
 using System.Collections.Generic;
 using System.Linq;
 using System.Text;
@@ -8,7 +9,7 @@ namespace Services
 {
     public interface IGenericService<T,TSearch> where T : class where TSearch : class
     {
-        T GetById(int id);
-        IEnumerable<T> GetAll(TSearch search = null);
+        Tuple<T,BaseSearchObject> GetById(int id);
+        Tuple<IList<T>,BaseSearchObject> GetAll(TSearch search = null);
     }
 }

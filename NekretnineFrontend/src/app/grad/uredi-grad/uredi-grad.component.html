@@ -10,7 +10,7 @@
           <label class="form-label">Podaci o drzavi</label>
           <input style="margin-bottom: 10px" class="form-control" [(ngModel)]="urediGrad.naziv"  placeholder="Ime Grada">
           <mat-select [(ngModel)]="odabranaDrzava">
-            <mat-option style="font-size: 15px" *ngFor="let drzava of drzave" [value]="drzava.drzavaID" >{{drzava.naziv}}</mat-option>
+            <mat-option style="font-size: 15px" *ngFor="let drzava of drzave" [value]="drzava.drzavaId" >{{drzava.naziv}}</mat-option>
           </mat-select>
         </div>
         <div class="modal-footer">

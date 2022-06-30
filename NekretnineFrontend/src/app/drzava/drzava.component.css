@@ -3,8 +3,12 @@ a{
   font-size:20px;
 }
 .drzave{
-  width:90%;
+
   height: 100%;
-  margin-left: auto;
+  margin-left: 20px;
   margin-right: auto;
+}
+.filteri{
+  width: 30%;
+  margin-top: 6%;
 }

@@ -20,23 +20,35 @@ namespace Services
             return entity;
         }
 
-        public override IEnumerable<Models.Gradovi> GetAll(Models.SearchObjects.GradoviSearchObject? search = null)
+        public override Tuple<IList<Models.Gradovi>, BaseSearchObject> GetAll(GradoviSearchObject? search = null)
         {
             var entity = Context.Set<Database.Grad>().Include(x => x.Drzava).AsQueryable();
             if (search != null)
                 entity = AddFilter(entity, search);
+            var count = entity.Count();
             if (search?.Page.HasValue == true && search?.PageSize.HasValue == true)
-                entity = entity.Take(search.PageSize.Value).Skip(search.PageSize.Value * search.Page.Value);
+                entity = entity.Skip(search.PageSize.Value * (search.Page.Value - 1)).Take(search.PageSize.Value);
             var list = entity.ToList();
-            return Mapper.Map<IList<Models.Gradovi>>(list);
+            var paginationMetadata = new BaseSearchObject
+            {
+                TotalCount = count,
+                Page = search.Page.Value,
+                PageSize = search.PageSize.Value,
+                TotalPages = (int)Math.Ceiling((decimal)count / (decimal)search.PageSize)
+            };
+            var mappedList = Mapper.Map<IList<Models.Gradovi>>(list);
+            return new Tuple<IList<Models.Gradovi>, BaseSearchObject>(mappedList, paginationMetadata);
+
         }
 
 
 
-        public override Models.Gradovi GetById(int id)
+        public override Tuple<Models.Gradovi,BaseSearchObject> GetById(int id)
         {
             var entity = Context.Set<Database.Grad>().Include(x => x.Drzava).First(x=> x.GradId == id);
-            return Mapper.Map<Models.Gradovi>(entity);
+            var mappedObject = Mapper.Map<Models.Gradovi>(entity);
+            var paginationMetadata = new BaseSearchObject { TotalCount = 1, Page = 1, PageSize = 1,TotalPages = 1 };
+            return new Tuple<Models.Gradovi, BaseSearchObject>(mappedObject, paginationMetadata);
         }
 
     }

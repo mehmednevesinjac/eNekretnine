@@ -1,7 +1,11 @@
 import { Component, OnInit } from '@angular/core';
-import {HttpClient} from "@angular/common/http";
+import {HttpClient, HttpHeaders, HttpParams, HttpResponse} from "@angular/common/http";
 import {MojConfig} from "../moj-config";
 import {Grad} from "./grad"
+import {BaseSearchObject} from "../Models/BaseSearchObject";
+import {PageEvent} from "@angular/material/paginator";
+import {Params} from "@angular/router";
+import {OidcSecurityService} from "angular-auth-oidc-client";
 @Component({
   selector: 'app-grad',
   templateUrl: './grad.component.html',
@@ -9,7 +13,7 @@ import {Grad} from "./grad"
 })
 export class GradComponent implements OnInit {
 
-  constructor(private HttpKlijent: HttpClient) {
+  constructor(private HttpKlijent: HttpClient, private oidcSecurityServices : OidcSecurityService) {
   }
 
   ngOnInit(): void {
@@ -18,9 +22,26 @@ export class GradComponent implements OnInit {
   Podaci: any;
   UrediPodatak: Grad = new Grad(0,0 ,"", false);
   FilterGrad: string = '';
-  getGrad() {
-    this.HttpKlijent.get(MojConfig.adresa_servera + "/api/Grad").subscribe(rezultat => {
-      this.Podaci = rezultat;
+  pagination : BaseSearchObject = new BaseSearchObject(null,1,5);
+  pageEvent : PageEvent;
+  token = this.oidcSecurityServices.getAccessToken();
+  httpOptions = {
+    headers: new HttpHeaders({Authorization: 'Bearer '+this.token})
+  };
+  httpParams : Params;
+
+  public getGrad(event?: PageEvent) {
+    if(event == null)
+      this.httpParams =  new HttpParams().set('Page',this.pagination.Page.toString() ).set('PageSize', this.pagination.PageSize).set('naziv',this.FilterGrad)
+    else
+      this.httpParams =  new HttpParams().set('Page',(event.pageIndex+1).toString() ).set('PageSize', this.pagination.PageSize)
+    this.HttpKlijent.get<any>(MojConfig.adresa_servera + "/api/Gradovi", {
+      headers: this.httpOptions.headers,
+      params: this.httpParams,
+      observe: 'response' as 'response',
+    }).subscribe((rezultat: HttpResponse<any>) => {
+      this.Podaci = rezultat.body;
+      this.pagination = JSON.parse(rezultat.headers.get('x-pagination'));
     });
   }
 
@@ -36,11 +57,10 @@ export class GradComponent implements OnInit {
     this.UrediPodatak.drzavaID = x.drzavaId;
     this.UrediPodatak.naziv = x.naziv;
     this.UrediPodatak.izmjenaGrada = true;
-    console.log(this.UrediPodatak.izmjenaGrada + "uredi grad");
   }
 
   izbrisiGrad(x: any) {
-    this.HttpKlijent.delete(MojConfig.adresa_servera + "/api/Grad/" + x.gradId).subscribe((rezultat: any) => {
+    this.HttpKlijent.delete(MojConfig.adresa_servera + "/api/Gradovi/" + x.gradId,this.httpOptions).subscribe((rezultat: any) => {
       console.log(rezultat);
       this.getGrad();
     })
@@ -48,12 +68,10 @@ export class GradComponent implements OnInit {
 
 
   NoviGrad(UrediPodatak: Grad) {
-    console.log(UrediPodatak.izmjenaGrada + "dodaj grad");
     UrediPodatak.izmjenaGrada = true;
     UrediPodatak.gradId = 0;
     UrediPodatak.drzavaID = 0;
     UrediPodatak.naziv = "";
-    console.log(UrediPodatak.izmjenaGrada + "dodaj grad");
   }
 
 }

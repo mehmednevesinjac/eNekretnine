@@ -1,17 +1,18 @@
 <mat-toolbar>
 
   Responsive side navigation
+  <button class="mat-button" style="position: absolute;right: 0px;"  (click)="Logout()">Logout</button>
 </mat-toolbar>
 
 <mat-sidenav-container>
   <mat-sidenav mode="side" opened class="mat-elevation-z8">
     <a class="nav-link" style="font-weight: bold" routerLink="/drzava">Drzava</a>
+    <button (click)="Login()">Login</button>
 
   </mat-sidenav>
   <mat-sidenav-content>
     <div class="content mat-elevation-z8">
       <router-outlet></router-outlet>
-
     </div>
 
   </mat-sidenav-content>

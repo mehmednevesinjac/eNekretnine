@@ -1,11 +1,12 @@
+import {BaseSearchObject} from "./BaseSearchObject";
+
 export class Drzava{
-  public  drzavaID : number;
+  public  drzavaId : number;
   public naziv : string;
 
   constructor(drzavaID : number, naziv : string)
   {
-    this.drzavaID = drzavaID;
+    this.drzavaId = drzavaID;
     this.naziv = naziv;
   }
-
 }
