@@ -1,20 +1,19 @@
 # Introduction 
-TODO: Give a short introduction of your project. Let this section explain the objectives or the motivation behind this project. 
+Ova aplikacije je namijenjena za frakciono investiranje u nekretnine. Sastoji se od dva dijela :
+1. Backend API osiguran sa Duende IdentityServer-om za generisanje tokena i Microsoft Identity za autorizovanje korisnika.
+API trenutno ima funkcionalnosti logiranja,registrovanja i CRUD operacija na tabelama : Države, Gradovi, Lokacije.
+SQL baza je postavljena na plesk te nije potrebno raditi restore. 
+
+2. Frontend koji je pravljen korištenjem AngularJS framework-a, koji omogućava korisniku login, registraciju, i manipulisanje dosad implementiranih tabela.
 
 # Getting Started
 TODO: Guide users through getting your code up and running on their own system. In this section you can talk about:
 1.	Installation process
-2.	Software dependencies
-3.	Latest releases
-4.	API references
-
-# Build and Test
-TODO: Describe and show how to build your code and run the tests. 
-
-# Contribute
-TODO: Explain how other users and developers can contribute to make your code better. 
-
-If you want to learn more about creating good readme files then refer the following [guidelines](https://docs.microsoft.com/en-us/azure/devops/repos/git/create-a-readme?view=azure-devops). You can also seek inspiration from the below readme files:
-- [ASP.NET Core](https://github.com/aspnet/Home)
-- [Visual Studio Code](https://github.com/Microsoft/vscode)
-- [Chakra Core](https://github.com/Microsoft/ChakraCore)
+  Klonirati projekat sa Github-a 
+  Otvoriti i pokrenuti NekretnineAPI 
+  Otvoriti NekretnineFrontend
+  Dohvatiti potrebne pakete
+  Pokrenuti Frontend koristeci ng serve --ssl 
+Login Informacije : 
+Username : test
+Password : Pass123.
